@@ -68,8 +68,6 @@ class Archive(object):
   def __init__(self,archive_fullpath,base_path,rarbin = ("/usr/bin/rar","/usr/local/bin/rar")):
     self.archive_fullpath = archive_fullpath
     self.base_path = base_path
-    if os.name == 'nt':
-      rarbin = "C:/Program Files/WinRAR/rar.exe"
     self.rarbin = findfile(rarbin)
     self.pwd = None
     # compression level: 0: store, 1: fastest, 2: fast, 3: normal, 4: good, 5: best
