@@ -15,11 +15,11 @@ def shellcall(cmd,silent=False):
   if silent:
     fnull = open(os.devnull, 'w')
     # we need shell = true to keep the cwd 
-    result = subprocess.call(cmd, shell = True, stdout = fnull, stderr = fnull)
+    result = subprocess.call(cmd, shell = false, stdout = fnull, stderr = fnull)
     fnull.close()
     return result
   else:
-    result = subprocess.call(cmd, shell = True)
+    result = subprocess.call(cmd, shell = false)
     return result
 
 
@@ -128,26 +128,27 @@ class Archive(object):
     os.chdir(self.base_path)
 
     # rar add 
-    cmd = self.rarbin + " a" 
-    
+    #cmd = self.rarbin + " a" 
+    cmd = [self.rarbin].append("a")
     # exclude certain locations
     for p in self.exclude_patterns: 
-      cmd = cmd +  " -x" + p
-
+      #cmd = cmd +  " -x" + p
+      cmd.append("-x"+p)
     # the archive path and name
-    cmd = cmd + " " + self.archive_fullpath 
-
+    #cmd = cmd + " " + self.archive_fullpath 
+    cmd.append(" "+self.archive_fullpath)
     # directories to include
     for p in self.include_dirs: 
-      cmd = cmd +  " " + p
-
+      #cmd = cmd +  " " + p
+      cmd.append(" " +p)
     # files to include
     for p in self.include_files: 
-      cmd = cmd +  " " + p
-	  
+      #cmd = cmd +  " " + p
+	     cmd.append(" " +p)
     # include password if necessary
     if self.pwd:
       pwd = " -p" + str(self.pwd)
+      #pwd = "-p" + str(self.pwd)
       # do not show password in syslog:
       logpwd = " -p*****"
     else:
@@ -155,18 +156,18 @@ class Archive(object):
       logpwd = ""
 	  
     # compression level
-    cmd = cmd + " -m" + str(self.compression_level)
-	
+    #cmd = cmd + " -m" + str(self.compression_level)
+	   cmd.append("-m" + str(self.compression_level)
     # split to volumes based on volume size
     if self.volume_size:
-      cmd = cmd + " -v" + str(self.volume_size)
-	  
+      #cmd = cmd + " -v" + str(self.volume_size)
+	    cmd.append(" -v" + str(self.volume_size)
     # add recovery record if necessary
     if self.recovery_record:
-      cmd = cmd + " -rr" + str(self.recovery_record)
-
+      #cmd = cmd + " -rr" + str(self.recovery_record)
+      cmd.append(" -rr" + str(self.recovery_record)
     if self.exclude_base_dir:
-      cmd = cmd + " -ep1"
+      cmd.append(" -ep1")
 
     res = shellcall("%s%s" % (cmd,pwd),silent=silent)
 
