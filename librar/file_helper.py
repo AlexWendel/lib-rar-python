@@ -1,4 +1,5 @@
 import os
+import tempfile
 
 def destroy_dir_recursive(dir):
   import shutil
@@ -8,7 +9,7 @@ def create_file(fullpath,content=""):
   f = open(fullpath,"w")
   f.write(content)
   f.close()    
-
+  
 def remove_file(fullpath):
   os.remove(fullpath)
 
@@ -85,7 +86,7 @@ def mkdir_p(path):
 
 
 
-def get_random_temp_dir_name(basedir="/tmp"):
+def get_random_temp_dir_name(basedir=tempfile.gettempdir()):
   """
   Creates a directory path with a unique random name as a subdirectory of
   the given directory.
@@ -95,7 +96,7 @@ def get_random_temp_dir_name(basedir="/tmp"):
    - some random numbers
   """
   import time, os, random
-  return "%s/%s-%s-%s" % (basedir,time.time(),os.getpid(),random.randrange(1000000,10000000)) 
+  return os.path.join(basedir,'%s-%s-%s' % (time.time(),os.getpid(),random.randrange(1000000,10000000)))
 
 
 

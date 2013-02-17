@@ -18,7 +18,7 @@ class TestArchive(unittest.TestCase):
     
   
   def tearDown(self):
-    if self.keep:
+    if self.keep or os.name == 'nt': #Windows Complains when removing files during Unit Test
       print "RESULT WAS KEPT: ================================="
       print
       print "cd", self.tempdir
@@ -55,7 +55,6 @@ class TestArchive(unittest.TestCase):
     b = archive.Archive(rar,base)
     syscode = b.extract(target_path=base)
     self.assertEqual(syscode,0)
-
     self.assertEqual(file_helper.file_head(fabs),"content123test")
 
   def testMakeArchive2Files(self):
