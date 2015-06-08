@@ -1,6 +1,6 @@
 This is a fork of lib-rar-python written by miebach, with more options when archiving
 
-This package asissts using the command line version of rar on linux
+This package assists using the command line version of rar on linux
 
 Install this module:
 
@@ -31,11 +31,14 @@ Usage example
 
 You can also add directories:
 
-  a.add_dir("/home/me/dir1") # directory and everythin below it will be added to archive
+  a.add_dir("/home/me/dir1") # directory and everything below it will be added to archive
   
 You can use add_dir and add_file multiple times and also combine them.
 
 To exclude directories or files:
   
-  a.exclude("/home/me/dir1/tmp") # directory and everythin below it (?) will be excluded
+  a.exclude("/home/me/dir1/tmp") # directory and everything below it (?) will be excluded
   
+
+-----
+skozacik Windows implementation: requires installation of WinRar in default folder. "C:\Program Files\WinRAR\rar.exe"

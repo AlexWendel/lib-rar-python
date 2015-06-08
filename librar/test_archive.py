@@ -2,7 +2,7 @@
 import os
 import unittest2 as unittest
 
-import file_helper, archive 
+from . import file_helper, archive 
 
 opj = os.path.join
 
@@ -19,11 +19,11 @@ class TestArchive(unittest.TestCase):
   
   def tearDown(self):
     if self.keep or os.name == 'nt': #Windows Complains when removing files during Unit Test
-      print "RESULT WAS KEPT: ================================="
-      print
-      print "cd", self.tempdir
-      print
-      print
+      print ("RESULT WAS KEPT: =================================")
+      print ()
+      print(("cd", self.tempdir))
+      print ()
+      print ()
       return
     file_helper.destroy_dir_recursive(self.tempdir)
      

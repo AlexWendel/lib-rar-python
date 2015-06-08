@@ -1,8 +1,8 @@
 #!/usr/bin/python
 import unittest2 as unittest
 
-import file_helper
-import archive
+from . import file_helper
+from . import archive
 
 
 import os

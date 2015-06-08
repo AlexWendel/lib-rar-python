@@ -27,14 +27,19 @@ def shellcall(cmd,silent=False):
 def findfile(choice):
     # Check if one of the filenames in the tuple 'choice' exists and return that filename.
     # 'choice' can either be of type String, containing a single filename
-    # or also a tuple of strigs.
+    # or also a tuple of strings.
     # On some systems the rar bin file is in a different location.
-    if type(choice) is types.StringType:
+    if type(choice) is bytes:
       if os.path.isfile(choice):
         return choice
       else:
         raise Exception("File not found: %s" % choice)
-    if type(choice) is types.TupleType:
+    if type(choice) is str:
+      if os.path.isfile(choice):
+        return choice
+      else:
+        raise Exception("File not found: %s" % choice)
+    if type(choice) is tuple:
       for f in choice:
         if os.path.isfile(f):
           return f
@@ -101,10 +106,10 @@ class Archive(object):
     self.include_dirs.append(fullpath)
     
   def set_password(self, pwd):
-	self.pwd = pwd
+    self.pwd = pwd
 	
   def set_compression_level(self, compression_level):
-	self.compression_level = compression_level
+    self.compression_level = compression_level
 
   def set_exclude_base_dir(self, exclude_base_dir):
     self.exclude_base_dir = exclude_base_dir
