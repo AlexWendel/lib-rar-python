@@ -188,8 +188,8 @@ class Archive(object):
     return cmd
       
   def run(self,silent=True):
-    res = shellcall("%s%s" % (cmd,pwd),silent=silent)
     cmd = self.gen_cmd()
+    res = shellcall("%s%s" % (cmd,pwd),silent=silent)    
     res = shellcall(cmd,silent=silent)
     if self.sys_logger is not None:
       # hide the password with asterisks in syslog:
