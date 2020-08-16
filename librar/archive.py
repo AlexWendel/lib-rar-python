@@ -80,7 +80,7 @@ class Archive(object):
     if os.name == 'nt':
       rarbin = '"C:\Program Files\WinRAR\\rar.exe"'
 
-    self.rarbin = rarbin
+    self.rarbin = findfile(rarbin)
     #print self.rarbin
     self.pwd = None
     # compression level: 0: store, 1: fastest, 2: fast, 3: normal, 4: good, 5: best
