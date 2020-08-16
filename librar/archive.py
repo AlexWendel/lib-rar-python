@@ -10,18 +10,20 @@ def shellcall(cmd,silent=False):
   # http://stackoverflow.com/questions/699325/suppress-output-in-python-calls-to-executables
   import os
   import subprocess
- 
+  print(cmd)
+  os.system(' '.join(cmd))
+
 #  print cmd
   # silent will suppress stdoud and stderr, good for testing!  
-  if silent:
-    fnull = open(os.devnull, 'w')
-    # we need shell = true to keep the cwd 
-    result = subprocess.call(cmd, shell = False, stdout = fnull, stderr = fnull)
-    fnull.close()
-    return result
-  else:
-    result = subprocess.call(cmd, shell = False)
-    return result
+#   if silent:
+#     fnull = open(os.devnull, 'w')
+#     # we need shell = true to keep the cwd 
+#     result = subprocess.call(cmd, shell = False, stdout = fnull, stderr = fnull)
+#     fnull.close()
+#     return result
+#   else:
+#     result = subprocess.call(cmd, shell = False)
+#     return result
 
 
 def findfile(choice):
@@ -137,7 +139,7 @@ class Archive(object):
     # -ep1 remove base directory from paths (store only relative directory)
 
     import os
-    os.chdir(self.base_path)
+#     os.chdir(self.base_path)
 
     # rar add 
     #cmd = self.rarbin + " a"
