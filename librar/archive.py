@@ -73,12 +73,14 @@ class Logger(object):
 
 class Archive(object):
 
-  def __init__(self,archive_fullpath,base_path,rarbin = ("/usr/bin/rar","/usr/local/bin/rar")):
+  def __init__(self,archive_fullpath,base_path,rarbin = ('"/usr/bin/rar"','"/usr/local/bin/rar"')):
     self.archive_fullpath = archive_fullpath
     self.base_path = base_path
+
     if os.name == 'nt':
-      rarbin = "C:\Program Files\WinRAR\\rar.exe"
-    self.rarbin = findfile(rarbin)
+      rarbin = '"C:\Program Files\WinRAR\\rar.exe"'
+
+    self.rarbin = rarbin
     #print self.rarbin
     self.pwd = None
     # compression level: 0: store, 1: fastest, 2: fast, 3: normal, 4: good, 5: best
@@ -183,14 +185,15 @@ class Archive(object):
       #cmd = cmd + " -rr" + str(self.recovery_record)
       cmd.append("-rr" + str(self.recovery_record))
     if self.exclude_base_dir:
-      cmd.append("-ep1")
-      
+      cmd.append("-ep1")      
     return cmd
       
   def run(self,silent=True):
     cmd = self.gen_cmd()
-    res = shellcall("%s%s" % (cmd,pwd),silent=silent)    
-    res = shellcall(cmd,silent=silent)
+    if self.pwd:
+      res = shellcall("%s%s" % (cmd,pwd),silent=silent)  
+    else:
+      res = shellcall(cmd,silent=silent)
     if self.sys_logger is not None:
       # hide the password with asterisks in syslog:
       self.sys_logger.log("%s%s; result: %s" % (cmd,logpwd,res))
