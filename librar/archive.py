@@ -111,7 +111,6 @@ class Archive(object):
     self.volume_size = volume_size
 	
   def extract(self,target_path,silent=True):
-    import os
     os.chdir(target_path)
     # e = extract to current dir, x = extract using full path
     # -r = recurse subdirectories
@@ -126,7 +125,6 @@ class Archive(object):
   def gen_cmd(self):
     # -ep1 remove base directory from paths (store only relative directory)
 
-    import os
 #     os.chdir(self.base_path)
 
     # rar add 
