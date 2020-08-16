@@ -135,7 +135,7 @@ class Archive(object):
     cmd.append(self.archive_fullpath)
     return shellcall(cmd,silent=silent)
     
-  def run(self,silent=True):
+  def gen_cmd(self):
     # -ep1 remove base directory from paths (store only relative directory)
 
     import os
@@ -184,13 +184,14 @@ class Archive(object):
       cmd.append("-rr" + str(self.recovery_record))
     if self.exclude_base_dir:
       cmd.append("-ep1")
-
-    #res = shellcall("%s%s" % (cmd,pwd),silent=silent)
-  #  print cmd
-   # print '%s' % cmd
+      
+    return cmd
+      
+  def run(self,silent=True):
+    res = shellcall("%s%s" % (cmd,pwd),silent=silent)
+    cmd = self.gen_cmd()
     res = shellcall(cmd,silent=silent)
     if self.sys_logger is not None:
       # hide the password with asterisks in syslog:
       self.sys_logger.log("%s%s; result: %s" % (cmd,logpwd,res))
-
     return res
