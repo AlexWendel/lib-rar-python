@@ -3,28 +3,14 @@ import subprocess
 import types
 import errno
 
-
-def shellcall(cmd,silent=False):
-  # do a system call with shell = true
-  # taken from 
-  # http://stackoverflow.com/questions/699325/suppress-output-in-python-calls-to-executables
-  import os
-  import subprocess
-  print(cmd)
-  os.system(' '.join(cmd))
-
-#  print cmd
-  # silent will suppress stdoud and stderr, good for testing!  
-#   if silent:
-#     fnull = open(os.devnull, 'w')
-#     # we need shell = true to keep the cwd 
-#     result = subprocess.call(cmd, shell = False, stdout = fnull, stderr = fnull)
-#     fnull.close()
-#     return result
-#   else:
-#     result = subprocess.call(cmd, shell = False)
-#     return result
-
+def shellcall(cmd, silent=False):
+    fnull = open(os.devnull, 'w') if not silent else None
+    stderr = fnull if silent else subprocess.STDOUT
+    stdout = fnull if silent else subprocess.PIPE
+    
+    result = subprocess.Popen(cmd, stderr=stderr, 
+        stdout=stdout).communicate()
+    return result
 
 def findfile(choice):
     # Check if one of the filenames in the tuple 'choice' exists and return that filename.
