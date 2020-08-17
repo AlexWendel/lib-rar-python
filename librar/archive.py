@@ -64,7 +64,7 @@ class Archive(object):
     self.base_path = base_path
 
     if os.name == 'nt':
-      rarbin = '"C:\Program Files\WinRAR\\rar.exe"'
+      rarbin = 'C:\Program Files\WinRAR\\rar.exe'
 
     self.rarbin = findfile(rarbin)
     #print self.rarbin
@@ -171,7 +171,7 @@ class Archive(object):
     for p in self.include_files: 
       #cmd = cmd +  " " + p
 	     cmd.append(p)
-             
+
     return cmd
       
   def run(self,silent=True):
