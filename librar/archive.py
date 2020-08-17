@@ -138,15 +138,6 @@ class Archive(object):
       cmd.append("-x"+p)
     # the archive path and name
     #cmd = cmd + " " + self.archive_fullpath 
-    cmd.append(self.archive_fullpath)
-    # directories to include
-    for p in self.include_dirs: 
-      #cmd = cmd +  " " + p
-      cmd.append(p)
-    # files to include
-    for p in self.include_files: 
-      #cmd = cmd +  " " + p
-	     cmd.append(p)
 	     
     # include password if necessary
     if self.pwd:
@@ -170,6 +161,17 @@ class Archive(object):
       cmd.append("-rr" + str(self.recovery_record))
     if self.exclude_base_dir:
       cmd.append("-ep1")      
+
+    cmd.append(self.archive_fullpath)
+    # directories to include
+    for p in self.include_dirs: 
+      #cmd = cmd +  " " + p
+      cmd.append(p)
+    # files to include
+    for p in self.include_files: 
+      #cmd = cmd +  " " + p
+	     cmd.append(p)
+             
     return cmd
       
   def run(self,silent=True):
